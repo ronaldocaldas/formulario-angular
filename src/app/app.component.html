@@ -1,8 +1,5 @@
 <div class="container">
-  {{usuarioForm.valid}}
-  <br> {{usuarioForm.invalid}}
-
-  <div *ngIf="usuarioForm.invalid" class="alert alert-danger">
+  <div *ngIf="usuarioForm.invalid && usuarioForm.touched" class="alert alert-danger">
     Preencha todos os campos do formulário corretamente!
   </div>
 
@@ -11,15 +8,20 @@
       <label class="form-control-label">Nome</label>
       <input type="text" class="form-control" name="primeiroNome"
        [(ngModel)]="cliente.nome" autocomplete="nome" required minlength="10" #nome="ngModel">
-        <div *ngIf="nome.hasError('required')">Informe um nome</div>
-        <div *ngIf="nome.hasError('minlength')">O nome deve ser completo</div>
+
+        Touched : {{ nome.touched }} <br>  <!-- campo ja foi tocado -->
+        Pristine: {{ nome.pristine }} <br> <!-- campo intacto -->
+        Dirty : {{ nome.dirty }} <!-- ja foi mexido -->
+
+        <div *ngIf="nome.hasError('required') && nome.touched">Informe um nome</div>
+        <div *ngIf="nome.hasError('minlength') && nome.touched">O nome deve ser completo</div>
     </div>
 
     <div class="form-group">
       <label class="form-control-label">E-mail</label>
       <input type="text" class="form-control" name="emailAddress"
       [(ngModel)]="cliente.email" autocomplete="emailAddress" required email #email="ngModel">
-      <div *ngIf="email.invalid">Informe um email válido</div>
+      <div *ngIf="email.invalid && nome.touched">Informe um email válido</div>
     </div>
 
     <div class="form-group">
@@ -28,7 +30,7 @@
         <option value="">Selecione</option>
         <option *ngFor="let profissao of profissoes">{{profissao}}</option>
       </select>
-      <div *ngIf="profissao.invalid">Informe uma profissão</div>
+      <div *ngIf="profissao.invalid && nome.touched">Informe uma profissão</div>
     </div>
 
     <button type="submit" class="btn btn-primary" [disabled]="usuarioForm.invalid">Salvar</button>
