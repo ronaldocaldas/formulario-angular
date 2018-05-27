@@ -1,3 +1,4 @@
+import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+
+  salvar(form: NgForm) {
+    console.log(form);
+    console.log(form.value.nome);
+  }
+
 }
