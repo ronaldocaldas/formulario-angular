@@ -1,35 +1,37 @@
 <div class="container">
   {{usuarioForm.valid}}
-  <br>
-  {{usuarioForm.invalid}}
+  <br> {{usuarioForm.invalid}}
 
   <div *ngIf="usuarioForm.invalid" class="alert alert-danger">
     Preencha todos os campos do formulário corretamente!
   </div>
 
-    <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
-      <div class="form-group">
-        <label class="form-control-label">Nome</label>
-        <input type="text" class="form-control" name="primeiroNome"
-         [(ngModel)]="cliente.nome" autocomplete="nome" required minlength="10">
-      </div>
+  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
+    <div class="form-group">
+      <label class="form-control-label">Nome</label>
+      <input type="text" class="form-control" name="primeiroNome"
+       [(ngModel)]="cliente.nome" autocomplete="nome" required minlength="10" #nome="ngModel">
+        <div *ngIf="nome.hasError('required')">Informe um nome</div>
+        <div *ngIf="nome.hasError('minlength')">O nome deve ser completo</div>
+    </div>
 
-      <div class="form-group">
-        <label class="form-control-label">E-mail</label>
-        <input type="text" class="form-control" name="emailAddress"
-          [(ngModel)]="cliente.email" autocomplete="emailAddress" required email>
-      </div>
+    <div class="form-group">
+      <label class="form-control-label">E-mail</label>
+      <input type="text" class="form-control" name="emailAddress"
+      [(ngModel)]="cliente.email" autocomplete="emailAddress" required email #email="ngModel">
+      <div *ngIf="email.invalid">Informe um email válido</div>
+    </div>
 
-      <div class="form-group">
-        <label class="form-control-label">Profissão</label>
-        <select class="form-control" name="profissao"
-          ngModel required>
-          <option value="">Selecione</option>
-          <option *ngFor="let profissao of profissoes">{{profissao}}</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label class="form-control-label">Profissão</label>
+      <select class="form-control" name="profissao" ngModel required #profissao="ngModel">
+        <option value="">Selecione</option>
+        <option *ngFor="let profissao of profissoes">{{profissao}}</option>
+      </select>
+      <div *ngIf="profissao.invalid">Informe uma profissão</div>
+    </div>
 
-      <button type="submit" class="btn btn-primary" [disabled]="usuarioForm.invalid">Salvar</button>
-    </form>
+    <button type="submit" class="btn btn-primary" [disabled]="usuarioForm.invalid">Salvar</button>
+  </form>
 
-  </div>
+</div>
