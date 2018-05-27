@@ -8,11 +8,6 @@
       <label class="form-control-label">Nome</label>
       <input type="text" class="form-control" name="primeiroNome"
        [(ngModel)]="cliente.nome" autocomplete="nome" required minlength="10" #nome="ngModel">
-
-        Touched : {{ nome.touched }} <br>  <!-- campo ja foi tocado -->
-        Pristine: {{ nome.pristine }} <br> <!-- campo intacto -->
-        Dirty : {{ nome.dirty }} <!-- ja foi mexido -->
-
         <div *ngIf="nome.hasError('required') && nome.touched">Informe um nome</div>
         <div *ngIf="nome.hasError('minlength') && nome.touched">O nome deve ser completo</div>
     </div>
