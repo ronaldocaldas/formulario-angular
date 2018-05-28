@@ -24,7 +24,7 @@ export class AppComponent {
     this.cliente.profissao = form.value.profissao;
     console.log(form.value);
     console.log(this.cliente);
-
+    form.reset({ profissao: '' });
   }
 
 }
